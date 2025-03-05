@@ -25,15 +25,15 @@ import {
 import { useState } from "react";
 
 export default function TodoList() {
-  const { dataUsers,setDataUsers, deleteUser, updateUser,addNewPerson } = tableUsetStore();
+  const { dataUsers, deleteUser, updateUser, addNewPerson } = tableUsetStore();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const [newPerson, setNewPerson]= useState({
+  const [newPerson, setNewPerson] = useState({
     id: null,
-    name : "",
+    name: "",
     role: "",
-    status: false
-  })
+    status: false,
+  });
 
   const {
     isOpen: isOpenAdd,
@@ -64,7 +64,12 @@ export default function TodoList() {
         Add+
       </Button>
       <Table
-        style={{ borderCollapse: "collapse", width: "70%", margin: "auto" }}
+        style={{ 
+          borderCollapse: "collapse",
+           width: "60%",
+            margin: "auto",
+            borderRadius:"20px",
+           }}
       >
         <TableHeader>
           <TableColumn
@@ -74,6 +79,7 @@ export default function TodoList() {
               padding: "2vh",
               color: "white",
               textAlign: "start",
+              borderRadius:"20px"
             }}
           >
             NAME
@@ -85,6 +91,7 @@ export default function TodoList() {
               padding: "2vh",
               color: "white",
               textAlign: "start",
+              borderRadius:"20px"
             }}
           >
             ROLE
@@ -97,6 +104,7 @@ export default function TodoList() {
               color: "white",
               textAlign: "start",
               width: "15%",
+              borderRadius:"20px"
             }}
           >
             STATUS
@@ -108,6 +116,8 @@ export default function TodoList() {
               padding: "2vh",
               color: "white",
               textAlign: "start",
+              borderRadius:"20px",
+              width:"15vh"
             }}
           >
             ACTIONS
@@ -117,17 +127,17 @@ export default function TodoList() {
           {dataUsers.map((user) => (
             <TableRow key={user.id}>
               <TableCell
-                style={{ padding: "2vh", borderBottom: "2px solid lightgrey" }}
+                style={{ padding: "2vh", borderBottom: "2px solid lightgrey",fontSize:"22px", fontWeight:"700" }}
               >
                 {user.name}
               </TableCell>
               <TableCell
-                style={{ padding: "2vh", borderBottom: "2px solid lightgrey" }}
+                style={{ padding: "2vh", borderBottom: "2px solid lightgrey",fontSize:"22px", fontWeight:"500" }}
               >
                 {user.role}
               </TableCell>
               <TableCell
-                style={{ padding: "2vh", borderBottom: "2px solid lightgrey" }}
+                style={{ padding: "2vh", borderBottom: "2px solid lightgrey",fontSize:"22px", fontWeight:"400" }}
               >
                 {user.status ? "ACTIVE" : "INACTIVE"}
               </TableCell>
@@ -242,11 +252,16 @@ export default function TodoList() {
           left: "35%",
           width: "30vw",
           height: "40vh",
-          display:"flex",
-          flexDirection:"column",
-          justifyContent:"space-between",
-          alignItems:"center",
-          padding:"2vh"
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "2vh",
+          backgroundColor: "bisque",
+          borderRadius: "10px",
+          border: "none",
+          outline: "none",
+          boxShadow: "2px 0px 10px grey",
         }}
         isOpen={isOpenAdd}
         onOpenChange={onOpenChangeAdd}
@@ -254,27 +269,76 @@ export default function TodoList() {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
+              <ModalHeader style={{ fontSize: "24px", fontWeight: "700" }}>
                 Add new Person to Joke with
               </ModalHeader>
-              <ModalBody>
-                <Input placeholder="name" onChange={(e)=>setNewPerson({...newPerson, name: e.target.value})} />
-                <Input placeholder="role" onChange={(e)=>setNewPerson({...newPerson, role : e.target.value})} />
+              <ModalBody
+                style={{ display: "flex", flexDirection: "column", gap: "3vh" }}
+              >
+                <Input
+                  style={{
+                    padding: "2vh",
+                    fontSize: "18px",
+                    border: "none",
+                    borderRadius: "12px",
+                    outline: "none",
+                  }}
+                  placeholder="name"
+                  onChange={(e) =>
+                    setNewPerson({ ...newPerson, name: e.target.value })
+                  }
+                />
+                <Input
+                  style={{
+                    padding: "2vh",
+                    fontSize: "18px",
+                    border: "none",
+                    borderRadius: "12px",
+                    outline: "none",
+                  }}
+                  placeholder="role"
+                  onChange={(e) =>
+                    setNewPerson({ ...newPerson, role: e.target.value })
+                  }
+                />
               </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+              <ModalFooter style={{ display: "flex", gap: "2vh" }}>
+                <Button
+                  style={{
+                    backgroundColor: "grey",
+                    color: "white",
+                    fontSize: "16px",
+                    padding: "1vh",
+                    borderRadius: "2vh",
+                    border: "none",
+                  }}
+                  color="danger"
+                  variant="light"
+                  onPress={onClose}
+                >
                   Close
                 </Button>
-                <Button color="primary" onPress={()=>{
-                  addNewPerson(newPerson)
-                  onClose()
-                setNewPerson({ id: null,
-                  name : "",
-                  role: "",
-                  status: false})
-                }
-                }
-                  >
+                <Button
+                  style={{
+                    backgroundColor: "blue",
+                    color: "white",
+                    fontSize: "16px",
+                    padding: "1vh",
+                    borderRadius: "2vh",
+                    border: "none",
+                  }}
+                  color="primary"
+                  onPress={() => {
+                    addNewPerson(newPerson);
+                    onClose();
+                    setNewPerson({
+                      id: null,
+                      name: "",
+                      role: "",
+                      status: false,
+                    });
+                  }}
+                >
                   Save
                 </Button>
               </ModalFooter>

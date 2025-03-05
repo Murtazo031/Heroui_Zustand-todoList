@@ -267,7 +267,13 @@ export default function TodoList() {
                 </Button>
                 <Button color="primary" onPress={()=>{
                   addNewPerson(newPerson)
-                  onClose}}
+                  onClose()
+                setNewPerson({ id: null,
+                  name : "",
+                  role: "",
+                  status: false})
+                }
+                }
                   >
                   Save
                 </Button>
